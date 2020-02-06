@@ -27,6 +27,9 @@
                 </thead>
 
                 <tbody>
+                </tbody>
+
+                <!-- <tbody>
                   <?php
                     $result = mysqli_query($connect,"SELECT * from karyawan");
                     while ($row = mysqli_fetch_array($result)) {
@@ -42,7 +45,7 @@
                       echo "</tr>";
                     }
                   ?>
-                </tbody>
+                </tbody> -->
             </table>
         </div>
     </div>
@@ -62,9 +65,21 @@
             $('#data-table-example2').DataTable({
             });
             $('#data-table-example1').DataTable({
-                "scrollY": 300,
-                "scrollX": true,
-//                responsive: true
+              ajax:{
+                  url: "http://localhost/task-it/version/2.0/ajax/pages/data/karyawan.php",
+                  type:"POST",
+                  dataSrc: ""
+              },
+              aoColumns:[
+                  {data:"nik"},
+                  {data:"nama"},
+                  {data:"tanggalLahir"},
+                  {data:"email"},
+                  {data:"divisi"},
+                  {data:"jabatan"},
+                  {data:"username"},
+                  {data:"password"}
+              ]
             });
             $('#data-table-example3').DataTable({
                 "columnDefs": [

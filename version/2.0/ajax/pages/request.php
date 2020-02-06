@@ -73,22 +73,33 @@
         });
 
         function initPage(){
-            $('#data-table-example1').DataTable({
+            $('#data-table-example3').DataTable({
               "scrollY": 300,
               "scrollX": true
             });
-            $('#data-table-example3').DataTable({
+            $('#data-table-example1').DataTable({
                 "columnDefs": [
                     {
                         // The `data` parameter refers to the data for the cell (defined by the
                         // `data` option, which defaults to the column being worked with, in
                         // this case `data: 0`.
                         "render": function ( data, type, row ) {
-                            var val = data.replace(/[\$,]/g, '');
-                            if (val > 100000){
-                                return '<span class="text-success">'+data+'</span>';
-                            }else{
-                                return '<span class="text-danger">'+data+'</span>';
+                            switch (data) {
+                              case "done":
+                                return '<button class="btn btn-success btn-3d btn-xs">Done</button>';
+                                // return '<span class="text-success">'+data+'</span>';
+                                break;
+                              case "new":
+                                return '<button class="btn btn-primary btn-3d btn-xs">New</button>';
+                                break;
+                              case "reject":
+                                return '<button class="btn btn-danger btn-3d btn-xs">Reject</button>';
+                                break;
+                              case "onprogress":
+                                return '<button class="btn btn-warning btn-3d btn-xs">On Progress</button>';
+                                break;
+                              default:
+
                             }
                         },
                         "targets": 5
