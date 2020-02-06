@@ -29,23 +29,6 @@
                 <tbody>
                 </tbody>
 
-                <!-- <tbody>
-                  <?php
-                    $result = mysqli_query($connect,"SELECT * from karyawan");
-                    while ($row = mysqli_fetch_array($result)) {
-                      echo "<tr>";
-                      echo "<td>{$row['nik']}</td>";
-                      echo "<td>{$row['nama']}</td>";
-                      echo "<td>{$row['tanggalLahir']}</td>";
-                      echo "<td>{$row['email']}</td>";
-                      echo "<td>{$row['divisi']}</td>";
-                      echo "<td>{$row['jabatan']}</td>";
-                      echo "<td>{$row['username']}</td>";
-                      echo "<td>{$row['password']}</td>";
-                      echo "</tr>";
-                    }
-                  ?>
-                </tbody> -->
             </table>
         </div>
     </div>

@@ -478,6 +478,11 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="#kepentingan">
+                                    <span class="inner-text">Kepentingan</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="#request">
                                     <span class="inner-text">Request</span>
                                 </a>
