@@ -67,67 +67,6 @@
             </div>
             <div class="clearfix-xxs"></div>
             <div class="navbar-items-2">
-                <!--Choose languages dropdown-->
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="img/flags/en.png" alt="en" />
-                            <span class="visible-lg-inline-block visible-md-inline-block visible-sm-inline-block">english</span>
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="active">
-                                <a href="#">
-                                    <img src="img/flags/en.png" alt="en" />
-                                    english(UK)
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="img/flags/us.png" alt="en" />
-                                    english(US)
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="img/flags/fr.png" alt="en" />
-                                    français
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="img/flags/it.png" alt="en" />
-                                    italiano
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="img/flags/ru.png" alt="en" />
-                                    русский
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="img/flags/de.png" alt="en" />
-                                    deutsch
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="img/flags/es.png" alt="en" />
-                                    español
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="img/flags/ge.png" alt="en" />
-                                    ქართული
-                                </a>
-                            </li>
-
-                        </ul>
-                    </li>
-                </ul>
                 <ul class="nav navbar-nav navbar-actions">
                     <li class="visible-lg">
                         <a href="#" data-action="fullscreen">
@@ -890,7 +829,7 @@
                 </ol>
             </div>
             <div id="content">
-
+              
             </div>
         </div>
         <!--Setting box-->

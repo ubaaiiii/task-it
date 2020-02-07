@@ -104,56 +104,155 @@
             </div>
         </div>
     </div>
-    <div>
-        <div id="dashboard-statisticts-panel" class="panel panel-light">
+    <?php
+      include 'config/config.php';
+    ?>
+
+    <!--Author      : @arboshiki-->
+    <div id="data-tables">
+        <!--Basic example-->
+        <div class="panel panel-light">
             <div class="panel-heading">
                 <div class="panel-title">
-                    <i class="fa fa-line-chart"></i> Statistics
+                    <h4>Request</h4>
                 </div>
             </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div>
-                            <canvas id="line-chart" height="250" width="900"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <h3 class="text-center margin-top-5">Sales in this week</h3>
-                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
-                        <h4>Clothing</h4>
-                        <canvas id="dashbboard-clothing-sales" height="100" width="100"></canvas>
-                        <h5>
-                            Total <span class="badge font-size-lg">2125</span> orders
-                        </h5>
-                    </div>
-                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
-                        <h4>Computing</h4>
-                        <canvas id="dashbboard-computing-sales" height="100" width="100"></canvas>
-                        <h5>
-                            Total <span class="badge font-size-lg">1742</span> orders
-                        </h5>
-                    </div>
-                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
-                        <h4>Furniture</h4>
-                        <canvas id="dashbboard-furniture-sales" height="100" width="100"></canvas>
-                        <h5>
-                            Total <span class="badge font-size-lg">69</span> orders
-                        </h5>
-                    </div>
-                    <div class="col-xxs-12 col-xs-6 col-sm-3 text-center">
-                        <h4>Vessel</h4>
-                        <canvas id="dashbboard-vessel-sales" height="100" width="100"></canvas>
-                        <h5>
-                            Total <span class="badge font-size-lg">145</span> orders
-                        </h5>
-                    </div>
-                </div>
+            <div class="panel-body table-responsive">
+                <table id="data-table-example1" class="display table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th rowspan=2>Kode Request</th>
+                            <th rowspan=2>Deskripsi</th>
+                            <th rowspan=2>Progress</th>
+                            <th rowspan=2>Status</th>
+                            <th colspan=2>Request</th>
+                            <th colspan=2>Done</th>
+                        </tr>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Oleh</th>
+                            <th>Tanggal</th>
+                            <th>Catatan</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
         </div>
+        <!--Scroll-->
+        <script type="text/javascript">
+            LobiAdmin.loadScript([
+                'js/plugin/datatables/jquery.dataTables.min.js'
+            ], function(){
+                LobiAdmin.loadScript([
+                    'js/plugin/datatables/dataTables.bootstrap.min.js',
+                    'js/plugin/datatables/dataTables.responsive.min.js',
+                    'js/plugin/bootstrap-datepicker/bootstrap-datepicker.js'
+                ], initPage);
+            });
+
+            function initPage(){
+                $('#data-table-example1').DataTable({
+                  ajax:{
+                      url: "http://localhost/task-it/version/2.0/ajax/pages/data/request.php",
+                      type:"POST",
+                      dataSrc: ""
+                  },
+                  aoColumns:[
+                      {data:"kodeRequest"},
+                      {data:"deskripsi"},
+                      {data:"progress",
+                      render:function( data, type, row, meta, dataToSet ) {
+                        switch (row.status) {
+                          case "done":
+                            return '<div class="progress progress-xs"><div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" aria-valuenow="'+data+'" aria-valuemin="0" aria-valuemax="100" style="width: '+data+'%"><span class="sr-only">'+data+'% Complete</span></div></div><button id="bDone" data="'+data.kodeRequest+'" class="btn btn-success btn-3d btn-xs" style="position:relative;top:-15px;">Done</button>';
+                            break;
+                          case "rejected":
+                            return '<div class="progress progress-xs"><div class="progress-bar progress-bar-striped progress-bar-danger active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span class="sr-only">0% Complete</span></div></div><button id="bRejected" data="'+data.kodeRequest+'" class="btn btn-danger btn-3d btn-xs" style="position:relative;top:-15px;">Rejected</button>';
+                            break;
+                          case "onprogress":
+                            return '<div class="progress progress-xs"><div class="progress-bar progress-bar-striped progress-bar-warning active" role="progressbar" aria-valuenow="'+data+'" aria-valuemin="0" aria-valuemax="100" style="width: '+data+'%"><span class="sr-only">'+data+'% Complete</span></div></div><button id="bProgress" data="'+data.kodeRequest+'" class="btn btn-warning btn-3d btn-xs" style="position:relative;top:-15px;">On Progress</button>';
+                            break;
+                          default:
+                            return '<div class="progress progress-xs"><div class="progress-bar progress-bar-striped progress-bar-info active" role="progressbar" aria-valuenow="'+data+'" aria-valuemin="0" aria-valuemax="100" style="width: '+data+'%"><span class="sr-only">'+data+'% Complete</span></div></div><button id="bNew" data="'+data.kodeRequest+'" class="btn btn-info btn-3d btn-xs" style="position:relative;top:-15px;">New</button>';
+                            break;
+                        }
+                      }},
+                      {data:"status",visible:false},
+                      {data:"tanggalRequest"},
+                      {data:"requester",
+                      render:function( data, type, row, meta, dataToSet ) {
+                        // return '<button class="btn btn-warning btn-outline btn-3d btn-circle btn-lg><i class="fa fa-github"></i></button>';
+                        return '<button class="btn btn-info btn-outline btn-3d btn-circle btn-lg"><img src="img/users/6.jpg" class="img-circle" alt="" width="50" style="position:relative;top:-6px;left:-7px;"></button>';
+                      }},
+                      {data:"tanggalDone"},
+                      {data:"catatanDone"}
+                  ]
+                });
+                $('#data-table-example2').DataTable({
+                    "scrollY": 300,
+                    "scrollX": true,
+    //                responsive: true
+                });
+                $('#data-table-example3').DataTable({
+                    "columnDefs": [
+                        {
+                            // The `data` parameter refers to the data for the cell (defined by the
+                            // `data` option, which defaults to the column being worked with, in
+                            // this case `data: 0`.
+                            "render": function ( data, type, row ) {
+                                var val = data.replace(/[\$,]/g, '');
+                                if (val > 100000){
+                                    return '<span class="text-success">'+data+'</span>';
+                                }else{
+                                    return '<span class="text-danger">'+data+'</span>';
+                                }
+                            },
+                            "targets": 5
+                        },
+                        { "visible": false,  "targets": [ 3 ] }
+                    ],
+                    responsive: true
+                });
+                var table = $('#data-table-example4').DataTable({
+                    responsive: true
+                });
+                // Apply the search
+                $("#data-table-example4 thead th input[type=text]").on( 'keyup change', function () {
+
+    	        table
+    	            .column( $(this).closest('th').index()+':visible' )
+    	            .search( this.value )
+    	            .draw();
+
+    	    });
+                // Apply the search
+                $("#data-table-example4 thead th select").on('change', function () {
+
+                    var val = $.fn.dataTable.util.escapeRegex(
+                        $(this).val()
+                    );
+
+    	        table
+    	            .column( $(this).closest('th').index()+':visible' )
+    	            .search( val ? '^'+val+'$' : '', true, false )
+    	            .draw();
+
+    	    } );
+                $('.datepicker-demo').datepicker({
+                    format: 'yyyy/mm/dd'
+                });
+
+                $('.panel').lobiPanel({
+                    reload: false,
+                    editTitle: false
+                });
+            }
+        </script>
     </div>
+
     <div class="row">
         <div class="col-md-6">
             <div>

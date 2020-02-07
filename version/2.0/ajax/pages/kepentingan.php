@@ -1,5 +1,5 @@
 <?php
-  include 'config/config.php';
+  include_once 'config/config.php';
 ?>
 
 <!--Author      : @arboshiki-->
@@ -16,8 +16,8 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Divisi</th>
-                        <th>Skor</th>
+                        <th>Kode</th>
+                        <th>Deskripsi</th>
                     </tr>
                 </thead>
 
@@ -41,14 +41,14 @@
         function initPage(){
             $('#data-table-example1').DataTable({
               ajax:{
-                  url: "http://localhost/task-it/version/2.0/ajax/pages/data/divisi.php",
+                  url: "http://localhost/task-it/version/2.0/ajax/pages/data/kepentingan.php",
                   type:"POST",
                   dataSrc: ""
               },
               aoColumns:[
                   {data:"id"},
-                  {data:"divisi"},
-                  {data:"skor"}
+                  {data:"kode"},
+                  {data:"deskripsi"}
               ]
             });
             $('#data-table-example2').DataTable({

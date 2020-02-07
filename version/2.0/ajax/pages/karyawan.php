@@ -1,5 +1,7 @@
 <?php
-  include 'config/config.php';
+  include_once 'config/config.php';
+  include_once 'model/jabatan.php';
+  include_once 'model/divisi.php';
 ?>
 
 <!--Author      : @arboshiki-->
@@ -17,12 +19,9 @@
                     <tr>
                         <th>NIK</th>
                         <th>Nama Lengkap</th>
-                        <th>Tanggal Lahir</th>
                         <th>Email</th>
                         <th>Divisi</th>
                         <th>Jabatan</th>
-                        <th>Username</th>
-                        <th>Password</th>
                     </tr>
                 </thead>
 
@@ -56,12 +55,21 @@
               aoColumns:[
                   {data:"nik"},
                   {data:"nama"},
-                  {data:"tanggalLahir"},
                   {data:"email"},
-                  {data:"divisi"},
-                  {data:"jabatan"},
-                  {data:"username"},
-                  {data:"password"}
+                  {data:"divisi",
+      			render: function(data,type,row,meta){
+                      var found = divisi.find(function(element) {
+                        return element.id == data;
+                      });
+                      return (found==undefined)?("kesalahan kode"):(found.divisi);
+                   }},
+                  {data:"jabatan",
+                   render: function(data,type,row,meta){
+                      var found = jabatan.find(function(element) {
+                        return element.id == data;
+                      });
+                      return (found==undefined)?("kesalahan kode"):(found.jabatan);
+                   }}
               ]
             });
             $('#data-table-example3').DataTable({

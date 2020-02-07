@@ -17,7 +17,6 @@
                     <tr>
                         <th>ID</th>
                         <th>Divisi</th>
-                        <th>Skor</th>
                     </tr>
                 </thead>
 
@@ -47,8 +46,7 @@
               },
               aoColumns:[
                   {data:"id"},
-                  {data:"divisi"},
-                  {data:"skor"}
+                  {data:"divisi"}
               ]
             });
             $('#data-table-example2').DataTable({

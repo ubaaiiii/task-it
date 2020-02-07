@@ -8,7 +8,7 @@
     <div class="panel panel-light">
         <div class="panel-heading">
             <div class="panel-title">
-                <h4>Divisi</h4>
+                <h4>Request</h4>
             </div>
         </div>
         <div class="panel-body table-responsive">
@@ -17,45 +17,20 @@
                     <tr>
                         <th rowspan=2>Kode Request</th>
                         <th rowspan=2>Deskripsi</th>
-                        <th rowspan=2>Status</th>
-                        <th colspan=3>Tanggal</th>
-                        <th rowspan=2>Requester</th>
-                        <th colspan=3>Tujuan</th>
-                        <th colspan=2>Catatan</th>
                         <th rowspan=2>Progress</th>
+                        <th rowspan=2>Status</th>
+                        <th colspan=2>Request</th>
+                        <th colspan=2>Done</th>
                     </tr>
                     <tr>
-                      <th>Request</th>
-                      <th>Dikerjakan</th>
-                      <th>Done</th>
-                      <th>Manager</th>
-                      <th>Pekerja</th>
-                      <th>Divisi</th>
-                      <th>Done</th>
-                      <th>Tugas</th>
+                        <th>Tanggal</th>
+                        <th>Oleh</th>
+                        <th>Tanggal</th>
+                        <th>Catatan</th>
+                    </tr>
                 </thead>
 
                 <tbody>
-                  <?php
-                    $result = mysqli_query($connect,"SELECT * from request");
-                    while ($row = mysqli_fetch_array($result)) {
-                      echo "<tr>";
-                      echo "<td>{$row['kodeRequest']}</td>";
-                      echo "<td>{$row['deskripsi']}</td>";
-                      echo "<td>{$row['status']}</td>";
-                      echo "<td>{$row['tanggalRequest']}</td>";
-                      echo "<td>{$row['tanggalDikerjakan']}</td>";
-                      echo "<td>{$row['tanggalDone']}</td>";
-                      echo "<td>{$row['requester']}</td>";
-                      echo "<td>{$row['managerTujuan']}</td>";
-                      echo "<td>{$row['dikerjakanOleh']}</td>";
-                      echo "<td>{$row['divisiTujuan']}</td>";
-                      echo "<td>{$row['catatanDone']}</td>";
-                      echo "<td>{$row['catatanTugas']}</td>";
-                      echo "<td>{$row['progress']}</td>";
-                      echo "</tr>";
-                    }
-                  ?>
                 </tbody>
             </table>
         </div>
@@ -73,33 +48,60 @@
         });
 
         function initPage(){
-            $('#data-table-example3').DataTable({
-              "scrollY": 300,
-              "scrollX": true
-            });
             $('#data-table-example1').DataTable({
+              ajax:{
+                  url: "http://localhost/task-it/version/2.0/ajax/pages/data/request.php",
+                  type:"POST",
+                  dataSrc: ""
+              },
+              aoColumns:[
+                  {data:"kodeRequest"},
+                  {data:"deskripsi"},
+                  {data:"progress",
+                  render:function( data, type, row, meta, dataToSet ) {
+                    switch (row.status) {
+                      case "done":
+                        return '<button id="bDone" data="'+data.kodeRequest+'" class="btn btn-success btn-3d btn-xs">Done</button><br><br><div class="progress progress-xs"><div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" aria-valuenow="'+data+'" aria-valuemin="0" aria-valuemax="100" style="width: '+data+'%"><span class="sr-only">'+data+'% Complete</span></div></div>';
+                        break;
+                      case "rejected":
+                        return '<button id="bRejected" data="'+data.kodeRequest+'" class="btn btn-danger btn-3d btn-xs">Rejected</button><br><br><div class="progress progress-xs"><div class="progress-bar progress-bar-striped progress-bar-danger active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span class="sr-only">0% Complete</span></div></div>';
+                        break;
+                      case "onprogress":
+                        return '<button id="bProgress" data="'+data.kodeRequest+'" class="btn btn-warning btn-3d btn-xs">On Progress</button><br><br><div class="progress progress-xs"><div class="progress-bar progress-bar-striped progress-bar-warning active" role="progressbar" aria-valuenow="'+data+'" aria-valuemin="0" aria-valuemax="100" style="width: '+data+'%"><span class="sr-only">'+data+'% Complete</span></div></div>';
+                        break;
+                      default:
+                        return '<button id="bNew" data="'+data.kodeRequest+'" class="btn btn-info btn-3d btn-xs">New</button><br><br><div class="progress progress-xs"><div class="progress-bar progress-bar-striped progress-bar-info active" role="progressbar" aria-valuenow="'+data+'" aria-valuemin="0" aria-valuemax="100" style="width: '+data+'%"><span class="sr-only">'+data+'% Complete</span></div></div>';
+                        break;
+                    }
+                  }},
+                  {data:"status",visible:false},
+                  {data:"tanggalRequest"},
+                  {data:"requester",
+                  render:function( data, type, row, meta, dataToSet ) {
+                    // return '<button class="btn btn-warning btn-outline btn-3d btn-circle btn-lg><i class="fa fa-github"></i></button>';
+                    return '<button class="btn btn-info btn-outline btn-3d btn-circle btn-lg"><img src="img/users/6.jpg" class="img-circle" alt="" width="50" style="position:relative;top:-6px;left:-7px;"></button>';
+                  }},
+                  {data:"tanggalDone"},
+                  {data:"catatanDone"}
+              ]
+            });
+            $('#data-table-example2').DataTable({
+                "scrollY": 300,
+                "scrollX": true,
+//                responsive: true
+            });
+            $('#data-table-example3').DataTable({
                 "columnDefs": [
                     {
                         // The `data` parameter refers to the data for the cell (defined by the
                         // `data` option, which defaults to the column being worked with, in
                         // this case `data: 0`.
                         "render": function ( data, type, row ) {
-                            switch (data) {
-                              case "done":
-                                return '<button class="btn btn-success btn-3d btn-xs">Done</button>';
-                                // return '<span class="text-success">'+data+'</span>';
-                                break;
-                              case "new":
-                                return '<button class="btn btn-primary btn-3d btn-xs">New</button>';
-                                break;
-                              case "reject":
-                                return '<button class="btn btn-danger btn-3d btn-xs">Reject</button>';
-                                break;
-                              case "onprogress":
-                                return '<button class="btn btn-warning btn-3d btn-xs">On Progress</button>';
-                                break;
-                              default:
-
+                            var val = data.replace(/[\$,]/g, '');
+                            if (val > 100000){
+                                return '<span class="text-success">'+data+'</span>';
+                            }else{
+                                return '<span class="text-danger">'+data+'</span>';
                             }
                         },
                         "targets": 5
