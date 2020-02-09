@@ -9,7 +9,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <title>LobiAdmin</title>
-        <link rel="shortcut icon" href="img/logo/lobiadmin-logo-16.ico" />
+        <link rel="shortcut icon" href="img/logo/ubai-favicon.png" />
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/font-awesome.min.css"/>
@@ -26,7 +26,7 @@
         <nav class="navbar navbar-default navbar-header header">
             <a class="navbar-brand" href="#">
                 <div class="navbar-brand-img"></div>
-                <!--<img src="img/logo/lobiadmin-logo-text-white-32.png" class="hidden-xs" alt="" />-->
+                <!-- <img src="img/logo/ubai-logo.png" class="img-fluid" alt="" /> -->
             </a>
             <!--Menu show/hide toggle button-->
             <ul class="nav navbar-nav pull-left show-hide-menu">
@@ -829,7 +829,7 @@
                 </ol>
             </div>
             <div id="content">
-              
+
             </div>
         </div>
         <!--Setting box-->

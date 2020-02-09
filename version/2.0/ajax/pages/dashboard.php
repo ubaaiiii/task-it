@@ -109,6 +109,11 @@
     ?>
 
     <!--Author      : @arboshiki-->
+    <?php
+      include 'config/config.php';
+    ?>
+
+    <!--Author      : @arboshiki-->
     <div id="data-tables">
         <!--Basic example-->
         <div class="panel panel-light">
@@ -167,16 +172,16 @@
                       render:function( data, type, row, meta, dataToSet ) {
                         switch (row.status) {
                           case "done":
-                            return '<div class="progress progress-xs"><div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" aria-valuenow="'+data+'" aria-valuemin="0" aria-valuemax="100" style="width: '+data+'%"><span class="sr-only">'+data+'% Complete</span></div></div><button id="bDone" data="'+data.kodeRequest+'" class="btn btn-success btn-3d btn-xs" style="position:relative;top:-15px;">Done</button>';
+                            return '<button id="bDone" data="'+data.kodeRequest+'" class="btn btn-success btn-3d btn-xs">Done</button><br><br><div class="progress progress-xs"><div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" aria-valuenow="'+data+'" aria-valuemin="0" aria-valuemax="100" style="width: '+data+'%"><span class="sr-only">'+data+'% Complete</span></div></div>';
                             break;
                           case "rejected":
-                            return '<div class="progress progress-xs"><div class="progress-bar progress-bar-striped progress-bar-danger active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span class="sr-only">0% Complete</span></div></div><button id="bRejected" data="'+data.kodeRequest+'" class="btn btn-danger btn-3d btn-xs" style="position:relative;top:-15px;">Rejected</button>';
+                            return '<button id="bRejected" data="'+data.kodeRequest+'" class="btn btn-danger btn-3d btn-xs">Rejected</button><br><br><div class="progress progress-xs"><div class="progress-bar progress-bar-striped progress-bar-danger active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span class="sr-only">0% Complete</span></div></div>';
                             break;
                           case "onprogress":
-                            return '<div class="progress progress-xs"><div class="progress-bar progress-bar-striped progress-bar-warning active" role="progressbar" aria-valuenow="'+data+'" aria-valuemin="0" aria-valuemax="100" style="width: '+data+'%"><span class="sr-only">'+data+'% Complete</span></div></div><button id="bProgress" data="'+data.kodeRequest+'" class="btn btn-warning btn-3d btn-xs" style="position:relative;top:-15px;">On Progress</button>';
+                            return '<button id="bProgress" data="'+data.kodeRequest+'" class="btn btn-warning btn-3d btn-xs">On Progress</button><br><br><div class="progress progress-xs"><div class="progress-bar progress-bar-striped progress-bar-warning active" role="progressbar" aria-valuenow="'+data+'" aria-valuemin="0" aria-valuemax="100" style="width: '+data+'%"><span class="sr-only">'+data+'% Complete</span></div></div>';
                             break;
                           default:
-                            return '<div class="progress progress-xs"><div class="progress-bar progress-bar-striped progress-bar-info active" role="progressbar" aria-valuenow="'+data+'" aria-valuemin="0" aria-valuemax="100" style="width: '+data+'%"><span class="sr-only">'+data+'% Complete</span></div></div><button id="bNew" data="'+data.kodeRequest+'" class="btn btn-info btn-3d btn-xs" style="position:relative;top:-15px;">New</button>';
+                            return '<button id="bNew" data="'+data.kodeRequest+'" class="btn btn-info btn-3d btn-xs">New</button><br><br><div class="progress progress-xs"><div class="progress-bar progress-bar-striped progress-bar-info active" role="progressbar" aria-valuenow="'+data+'" aria-valuemin="0" aria-valuemax="100" style="width: '+data+'%"><span class="sr-only">'+data+'% Complete</span></div></div>';
                             break;
                         }
                       }},
@@ -252,6 +257,7 @@
             }
         </script>
     </div>
+
 
     <div class="row">
         <div class="col-md-6">
